@@ -1,0 +1,7 @@
+{
+    "dir": {
+        "internal": "runtime/internal",
+        "external": "runtime/external",
+        "generated": "runtime/generated"
+    }
+}
