@@ -1,8 +1,11 @@
 const Sequelize = require("sequelize")
+const path = require("path")
+
+const config = require("../config")
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
-    storage: "../LLSIFClient-node-test/runtime/external/db/unit/unit.db_",
+    storage: path.join(config.dir.external, "db/unit/unit.db_"),
     logging: false
 })
 
