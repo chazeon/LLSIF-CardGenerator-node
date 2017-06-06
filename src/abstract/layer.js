@@ -82,6 +82,12 @@ class CardBackgroundLayer extends UnitLayer {
     }
 }
 
+class CardEmptyLayer extends UnitLayer {
+    get assetPath() {
+        return "empty.png"
+    }
+}
+
 class FlashLayer extends UnitLayer {
     get assetPath() { return this.unit.flashAssetPath }
 }
@@ -97,6 +103,7 @@ module.exports = {
     FlashLayer,
     CardFrameLayer,
     CardBackgroundLayer,
+    CardEmptyLayer,
     IconFrameLayer,
     IconNaviLayer,
     IconBackgroundLayer

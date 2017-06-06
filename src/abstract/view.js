@@ -27,12 +27,29 @@ class CardView extends View {
         this.flashLayer =       new layer.FlashLayer(unit)
         this.naviLayer =        new layer.CardNaviLayer(unit)
         this.backgroundLayer =  new layer.CardBackgroundLayer(unit)
+        this.emptyLayer =       new layer.CardEmptyLayer(unit)
 
         this.options = options === undefined ? {} : options
     }
-    get framed() { return this.options.framed === undefined ? true : (this.options.framed ? true : false) }
+    get mode() { return this.options.mode === undefined ? 'framed' : this.options.mode }
     get layers() {
-        if (this.framed)
+        if (this.mode === 'frameless')
+            if (this.flashLayer.assetPath)
+                return [ this.flashLayer ]
+            else
+                return [
+                    this.backgroundLayer,
+                    this.naviLayer
+                ]
+        else if (this.mode === 'transparent')
+            if (this.flashLayer.assetPath)
+                return [ this.flashLayer ]
+            else
+                return [
+                    this.emptyLayer,
+                    this.naviLayer
+                ]
+        else /* if (this.mode === 'framed') */
             if (this.flashLayer.assetPath)
                 return [
                     this.flashLayer,
@@ -52,32 +69,33 @@ class CardView extends View {
                     this.rarityLayer,
                     this.evolutionLayer
                 ]
-        else
-            if (this.flashLayer.assetPath)
-                return [
-                    this.flashLayer
-                ]
-            else
-                return [
-                    this.backgroundLayer,
-                    this.naviLayer
-                ]
     }
 }
 
 class IconView extends View {
-    constructor(unit) {
+    constructor(unit, options) {
         super()
         this.frameLayer =       new layer.IconFrameLayer(unit)
         this.naviLayer =        new layer.IconNaviLayer(unit)
         this.backgroundLayer =  new layer.IconBackgroundLayer(unit)
+
+        this.options = options === undefined ? {} : options
     }
+    get mode() { return this.options.mode === undefined ? 'framed' : this.options.mode }
     get layers() {
-        return [
-            this.backgroundLayer,
-            this.naviLayer,
-            this.frameLayer
-        ]
+        if (this.mode === 'frameless')
+            return [
+                this.backgroundLayer,
+                this.naviLayer,
+            ]
+        else if (this.mode === 'transparent')
+            return [ this.naviLayer ]
+        else /* if (this.mode === 'framed') */
+            return [
+                this.backgroundLayer,
+                this.naviLayer,
+                this.frameLayer
+            ]
     }
 }
 

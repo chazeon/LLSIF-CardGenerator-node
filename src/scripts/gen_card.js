@@ -37,7 +37,7 @@ unitFactory.createAllUnits()
 .map(unit => {
     return new Promise((resolve, reject) => {
         unit.rankedMax = true
-        let cardView = viewFactory.createCardView(unit, { framed: false })
+        let cardView = viewFactory.createCardView(unit, { mode: 'frameless' })
         let filename = `runtime/generated/frameless/cards/${unit.cardId}.png`
         if (!fs.existsSync(filename))
             return cardView.toFile(filename)
@@ -49,8 +49,32 @@ unitFactory.createAllUnits()
 .map(unit => {
     return new Promise((resolve, reject) => {
         unit.rankedMax = false
-        let cardView = viewFactory.createCardView(unit, { framed: false })
+        let cardView = viewFactory.createCardView(unit, { mode: 'frameless' })
         let filename = `runtime/generated/frameless/cards/${unit.cardId}.png`
+        if (!fs.existsSync(filename))
+            return cardView.toFile(filename)
+            .then(() => resolve(unit))
+            .catch(err => reject(err))
+        else resolve(unit)
+    })
+}, { concurrency: 5 })
+.map(unit => {
+    return new Promise((resolve, reject) => {
+        unit.rankedMax = true
+        let cardView = viewFactory.createCardView(unit, { mode: 'transparent' })
+        let filename = `runtime/generated/transparent/cards/${unit.cardId}.png`
+        if (!fs.existsSync(filename))
+            return cardView.toFile(filename)
+            .then(() => resolve(unit))
+            .catch(err => reject(err))
+        else resolve(unit)
+    })
+}, { concurrency: 5 })
+.map(unit => {
+    return new Promise((resolve, reject) => {
+        unit.rankedMax = false
+        let cardView = viewFactory.createCardView(unit, { mode: 'transparent' })
+        let filename = `runtime/generated/transparent/cards/${unit.cardId}.png`
         if (!fs.existsSync(filename))
             return cardView.toFile(filename)
             .then(() => resolve(unit))
