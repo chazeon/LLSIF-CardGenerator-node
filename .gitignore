@@ -39,6 +39,7 @@ jspm_packages
 
 # Configuration
 config/config.json
+config/oss.json
 
 # Early day drafts
 src/draft/
