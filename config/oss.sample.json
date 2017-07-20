@@ -1,0 +1,6 @@
+{
+    "region": "oss-cn-location",
+    "accessKeyId": "the-oss-access-key",
+    "accessKeySecret": "the-oss-access-secret",
+    "bucket": "card-images-bucket"
+}
