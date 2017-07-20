@@ -45,8 +45,11 @@ async function uploadTask() {
     }
 }
 
-uploadTask()
-.then(result => {
-    winston.info('Everything is done.')
-})
+if (require.main === module) {
+    uploadTask()
+    .then(result => {
+        winston.info('Everything is done.')
+    })
+}
 
+module.exports = uploadTask
