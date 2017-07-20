@@ -21,7 +21,7 @@ function composite(back, front) {
             }
             )
         )
-        .then(buffer => Promise.resolve(backImg.overlayWith(buffer).toBuffer()))
+        .then(buffer => Promise.resolve(backImg.overlayWith(buffer).png({ progressive: true }).toBuffer()))
         .then(buffer => resolve(buffer))
     })
 }
@@ -34,7 +34,7 @@ function mergeLayers(layerStack) {
     else if (Buffer.isBuffer(layerStack[0]))
         return new Promise((resolve) => resolve(layerStack[0]))
     else
-        return sharpLoad(layerStack[0]).toBuffer()
+        return sharpLoad(layerStack[0]).png({ progressive: true }).toBuffer()
 }
 
 module.exports = mergeLayers
