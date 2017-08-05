@@ -42,6 +42,7 @@ class CardView extends View {
                     this.naviLayer
                 ]
         else if (this.mode === 'transparent')
+            /*
             if (this.flashLayer.assetPath)
                 return [ this.flashLayer ]
             else
@@ -49,6 +50,11 @@ class CardView extends View {
                     this.emptyLayer,
                     this.naviLayer
                 ]
+        */
+            return [
+                this.emptyLayer,
+                this.naviLayer
+            ]
         else /* if (this.mode === 'framed') */
             if (this.flashLayer.assetPath)
                 return [
