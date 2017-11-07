@@ -119,6 +119,10 @@ class UnitFactory {
                 .then(() => resolve(pair)))
                 .catch(err => reject(err))
             )
+            .filter(pair => {
+                return pair.units[0].unitModel['unit_number'] !== 0
+                && pair.units[1].unitModel['unit_number'] !== 0
+            })
             .then(pairs => resolve(pairs))
             .catch(err => reject(err))
         })
